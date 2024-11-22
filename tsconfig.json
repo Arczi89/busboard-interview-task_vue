@@ -12,9 +12,7 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
+    "types": ["vitest","webpack-env"],
     "paths": {
       "@/*": [
         "src/*"
