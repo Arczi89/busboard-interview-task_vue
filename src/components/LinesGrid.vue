@@ -2,7 +2,7 @@
   <div class="lines-grid">
     <div class="row gx-2 gy-2">
       <div
-        v-for="line in lines"
+        v-for="line in sortedLines"
         :key="line"
         class="col-auto"
       >
@@ -10,9 +10,7 @@
           class="btn btn-primary btn-sm px-2"
           @click="selectLine(line)"
           :class="{ active: line === selectedLine }"
-        >
-          {{ line }}
-        </button>
+        >{{ line }}</button>
       </div>
     </div>
   </div>
@@ -31,6 +29,11 @@ export default {
       default: null,
     },
   },
+  computed: {
+    sortedLines() {
+      return this.lines;
+    },
+  },
   methods: {
     selectLine(line) {
       this.$emit("select-line", line);
@@ -38,14 +41,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.lines-grid {
-  text-align: center;
-}
-
-button {
-  width: 50px; 
-  height: 40px;
-}
-</style>
