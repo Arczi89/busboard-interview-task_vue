@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref, computed, watch } from 'vue';
 import api from '../services/api';
 import type { SortedStop } from '@/types/SortedStop';
 
@@ -72,6 +72,8 @@ export default defineComponent({
     const toggleSortOrder = () => {
       sortOrder.value = sortOrder.value === 'ASC' ? 'DESC' : 'ASC';
     };
+
+    watch(() => props.line, () => selectedStop.value = null);
 
     return {
       selectedStop,
