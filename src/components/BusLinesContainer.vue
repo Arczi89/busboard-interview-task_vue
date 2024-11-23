@@ -13,37 +13,43 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
 import LinesGrid from "@/components/LinesGrid.vue";
 import BusLineDetails from "@/components/BusLineDetails.vue";
 import api from "@/services/api";
+import { SortedStop } from '@/types/SortedStop';
 
-export default {
+export default defineComponent({
   name: "BusLinesContainer",
   components: {
     LinesGrid,
     BusLineDetails,
   },
-  data() {
-    return {
-      lines: [],
-      selectedLine: null,
-      stops: [],
-    };
-  },
-  async created() {
-    this.lines = await api.getLines();
-  },
-  methods: {
-    async handleLineSelect(line) {
-      this.selectedLine = line;
+  setup() {
+    const lines = ref<number[]>([]);
+    const selectedLine = ref<number | null>(null);
+    const stops = ref<SortedStop[]>([]);
+
+    onMounted(async () => {
+      lines.value = await api.getLines();
+    });
+
+    const handleLineSelect = async (line: number) => {
+      selectedLine.value = line;
       try {
-        this.stops = await api.getStopsByLine(line);
-        console.log(this.stops);
+        stops.value = await api.getStopsByLine(line);
       } catch (error) {
         console.error("Failed to load stops:", error);
       }
-    }
-  },
-};
+    };
+
+    return {
+      lines,
+      selectedLine,
+      stops,
+      handleLineSelect,
+    };
+  }
+});
 </script>

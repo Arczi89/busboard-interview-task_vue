@@ -32,51 +32,54 @@
   </div>
 </template>
 
-<script>
-import api from "../services/api";
+<script lang="ts">
+import { defineComponent, ref, computed } from 'vue';
+import api from '../services/api';
+import type { SortedStop } from '@/types/SortedStop';
 
-export default {
-  name: "BusLineDetails",
+export default defineComponent({
+  name: 'BusLineDetails',
   props: {
     line: {
       type: [String, Number],
       required: true,
     },
     stops: {
-      type: Array,
+      type: Array as () => SortedStop[], 
       default: () => [],
     },
   },
-  data() {
+  setup(props) {
+    const selectedStop = ref<SortedStop | null>(null);
+    const sortOrder = ref<'ASC' | 'DESC'>('ASC'); 
+    const sortedStops = computed(() => {
+      return [...props.stops].sort((a, b) => a.order - b.order); 
+    });
+
+    const sortedTimes = computed(() => {
+      if (!selectedStop.value || !selectedStop.value.times) return [];
+      return [...selectedStop.value.times].sort((a, b) => api.convertToMinutes(a) - api.convertToMinutes(b));
+    });
+
+    const selectStop = async (stop: SortedStop) => {
+      selectedStop.value = stop;
+      if (!selectedStop.value.times) {
+        const times = await api.getTimesByStop(stop.name);
+        selectedStop.value.times = times;
+      }
+    };
+
+    const toggleSortOrder = () => {
+      sortOrder.value = sortOrder.value === 'ASC' ? 'DESC' : 'ASC';
+    };
+
     return {
-      selectedStop: null,
-      sortOrder: "asc",
+      selectedStop,
+      sortedStops,
+      sortedTimes,
+      selectStop,
+      toggleSortOrder,
     };
   },
-  computed: {
-    sortedStops() {
-      return [...this.stops].sort((a, b) => a.order - b.order);
-    },
-    sortedTimes() {
-      if (!this.selectedStop || !this.selectedStop.times) return [];
-      return [...this.selectedStop.times].sort((a, b) => this.convertToMinutes(a) - this.convertToMinutes(b));
-    },
-  },
-  methods: {
-    async selectStop(stop) {
-      this.selectedStop = stop;
-      if (!this.selectedStop.times) {
-        const times = await api.getTimesByStop(stop.name);
-        this.selectedStop.times = times;
-      }
-    },
-    toggleSortOrder() {
-      this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
-    },
-    convertToMinutes(time) {
-      const [hours, minutes] = time.split(":").map(Number);
-      return hours * 60 + minutes;
-    },
-  },
-};
+});
 </script>

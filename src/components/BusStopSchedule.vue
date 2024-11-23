@@ -7,18 +7,20 @@
     <div v-else class="list-group">
       <button
         v-for="stop in stops"
-        :key="stop.stop"
+        :key="stop"
         class="list-group-item list-group-item-action"
         @click="$emit('select-stop', stop)"
       >
-        {{ stop.stop }}
+        {{ stop }}
       </button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "BusStopSchedule",
   props: {
     line: {
@@ -26,9 +28,9 @@ export default {
       required: true,
     },
     stops: {
-      type: Array,
+      type: Array as () => string[],
       default: () => [],
     },
   },
-};
+});
 </script>
