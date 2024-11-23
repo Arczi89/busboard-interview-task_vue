@@ -54,12 +54,12 @@ export default defineComponent({
 
     const sortedStops = computed(() => {
       return busStops.value
-        .map((stop) => stop.stop) // Pobierz tylko nazwy przystanków
-        .filter((stopName, index, self) => self.indexOf(stopName) === index) // Usuń duplikaty
+        .map((stop) => stop.stop)
+        .filter((stopName, index, self) => self.indexOf(stopName) === index)
         .filter((stopName) =>
-          stopName.toLowerCase().includes(searchTerm.value.toLowerCase()) // Filtrowanie po wyszukiwaniu
+          stopName.toLowerCase().includes(searchTerm.value.toLowerCase())
         )
-        .sort((a, b) => a.localeCompare(b)); // Sortowanie alfabetyczne
+        .sort((a, b) => a.localeCompare(b));
     });
 
     onMounted(fetchStops);

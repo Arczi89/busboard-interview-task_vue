@@ -16,6 +16,7 @@
 <script>
 import LinesGrid from "@/components/LinesGrid.vue";
 import BusLineDetails from "@/components/BusLineDetails.vue";
+import api from "@/services/api";
 
 export default {
   name: "BusLinesContainer",
@@ -25,20 +26,24 @@ export default {
   },
   data() {
     return {
-      lines: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109],
+      lines: [],
       selectedLine: null,
       stops: [],
     };
   },
+  async created() {
+    this.lines = await api.getLines();
+  },
   methods: {
-    handleLineSelect(line) {
+    async handleLineSelect(line) {
       this.selectedLine = line;
-      this.stops = [
-        { id: 1, name: "Czyżyny Dworzec", times: ["3:00", "3:30", "4:00"] },
-        { id: 2, name: "Rondo Czyżyńskie", times: ["3:15", "3:45", "4:15"] },
-        { id: 3, name: "Centralna", times: ["3:20", "3:50", "4:20"] },
-      ];
-    },
+      try {
+        this.stops = await api.getStopsByLine(line);
+        console.log(this.stops);
+      } catch (error) {
+        console.error("Failed to load stops:", error);
+      }
+    }
   },
 };
 </script>
