@@ -11,9 +11,9 @@ export default {
 </script>
 
 <style scoped>
-  h1 {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-  }
+h1 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
 </style>

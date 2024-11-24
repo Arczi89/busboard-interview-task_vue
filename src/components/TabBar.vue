@@ -1,29 +1,19 @@
 <template>
   <ul class="nav nav-tabs">
     <li class="nav-item" :class="{ active: $route.path === '/' }">
-      <router-link
-      to="/"
-      class="nav-link"
-      >
-        Bus Lines
-      </router-link>
+      <router-link to="/" class="nav-link"> Bus Lines </router-link>
     </li>
     <li class="nav-item" :class="{ active: $route.path === '/stops' }">
-      <router-link
-        to="/stops"
-        class="nav-link"
-      >
-        Stops
-      </router-link>
+      <router-link to="/stops" class="nav-link"> Stops </router-link>
     </li>
   </ul>
   <div class="separator"></div>
 </template>
-  
+
 <script lang="ts">
-  export default {
-    name: "TabBar",
-  };
+export default {
+  name: "TabBar",
+};
 </script>
 
 <style scoped>
@@ -37,18 +27,17 @@
     }
   }
 }
-  .nav-item.active {
-    border: none;
-    border-bottom: #1952E1 solid 2px;
-    a {
-      color: #33373C;
-      font-weight: 500;
-    }
+.nav-item.active {
+  border: none;
+  border-bottom: #1952e1 solid 2px;
+  a {
+    color: #33373c;
+    font-weight: 500;
   }
-  .nav-item:not(.active) {
-    a {
-      color: #9A9DA4;
-    }
+}
+.nav-item:not(.active) {
+  a {
+    color: #9a9da4;
   }
+}
 </style>
-  

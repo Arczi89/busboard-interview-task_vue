@@ -1,23 +1,21 @@
 <template>
   <div class="lines-grid">
     <div class="row gx-2 gy-2">
-      <div
-        v-for="line in sortedLines"
-        :key="line"
-        class="col-auto"
-      >
+      <div v-for="line in sortedLines" :key="line" class="col-auto">
         <button
           class="btn btn-primary btn-sm px-2"
           @click="selectLine(line)"
           :class="{ active: line === selectedLine }"
-        >{{ line }}</button>
+        >
+          {{ line }}
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue';
+import { defineComponent, computed, PropType } from "vue";
 
 export default defineComponent({
   name: "LinesGrid",
@@ -44,7 +42,7 @@ export default defineComponent({
       sortedLines,
       selectLine,
     };
-  }
+  },
 });
 </script>
 
@@ -54,7 +52,7 @@ export default defineComponent({
   padding: 0 1rem 1rem 1rem;
 }
 button {
-  background: #1952E1;
+  background: #1952e1;
   width: 54px;
   height: 32px;
 }

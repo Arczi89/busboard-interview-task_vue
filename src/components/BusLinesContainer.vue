@@ -3,19 +3,16 @@
     <h2>Select Bus Line</h2>
     <LinesGrid :lines="lines" @select-line="handleLineSelect" />
     <div class="separator"></div>
-    <BusLineDetails
-      :line="selectedLine"
-      :stops="stops"
-    />
+    <BusLineDetails :line="selectedLine" :stops="stops" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted } from "vue";
 import LinesGrid from "@/components/LinesGrid.vue";
 import BusLineDetails from "@/components/BusLineDetails.vue";
 import api from "@/services/api";
-import { SortedStop } from '@/types/SortedStop';
+import { SortedStop } from "@/types/SortedStop";
 
 export default defineComponent({
   name: "BusLinesContainer",
@@ -47,18 +44,18 @@ export default defineComponent({
       stops,
       handleLineSelect,
     };
-  }
+  },
 });
 </script>
 <style scoped>
 .bus-lines-container {
   background-color: white;
 }
-  h2 {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 24px;
-    font-family: Inter;
-    padding: 1rem;
-  }
+h2 {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  font-family: Inter;
+  padding: 1rem;
+}
 </style>
