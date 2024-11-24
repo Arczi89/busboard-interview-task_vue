@@ -9,22 +9,23 @@
       />
     </div>
     <h2>
-        Bus Stops
-        <div
-          class="btn btn-link sort"
-          @click="toggleSortOrder"
-          :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
-        >
-          <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up-square' : 'bi-arrow-down-square'"></i>
-        </div>
-      </h2>
+      Bus Stops
+      <div
+        class="btn btn-link sort"
+        @click="toggleSortOrder"
+        :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
+      >
+        <i
+          class="bi"
+          :class="
+            sortOrder === 'ASC' ? 'bi-arrow-up-square' : 'bi-arrow-down-square'
+          "
+        ></i>
+      </div>
+    </h2>
 
     <ul class="list-group">
-      <li
-        v-for="stop in filteredStops"
-        :key="stop"
-        class="list-group-item"
-      >
+      <li v-for="stop in filteredStops" :key="stop" class="list-group-item">
         {{ stop }}
       </li>
     </ul>
@@ -35,17 +36,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue';
-import api from '../services/api';
+import { defineComponent, ref, computed, onMounted } from "vue";
+import api from "../services/api";
 
 export default defineComponent({
-  name: 'StopsPage',
+  name: "StopsPage",
   setup() {
-    const searchTerm = ref('');
+    const searchTerm = ref("");
     const busStops = ref<string[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
-    const sortOrder = ref<'ASC' | 'DESC'>('ASC');
+    const sortOrder = ref<"ASC" | "DESC">("ASC");
 
     const fetchStops = async () => {
       loading.value = true;
@@ -54,7 +55,7 @@ export default defineComponent({
         const data = await api.getSortedStops(sortOrder.value);
         busStops.value = data;
       } catch (err: unknown) {
-        error.value = err instanceof Error ? err.message : 'Unknown error';
+        error.value = err instanceof Error ? err.message : "Unknown error";
       } finally {
         loading.value = false;
       }
@@ -67,7 +68,7 @@ export default defineComponent({
     });
 
     const toggleSortOrder = () => {
-      sortOrder.value = sortOrder.value === 'ASC' ? 'DESC' : 'ASC';
+      sortOrder.value = sortOrder.value === "ASC" ? "DESC" : "ASC";
       fetchStops();
     };
 
@@ -86,16 +87,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .stops-page {
   padding: 1rem;
   background-color: white;
 
-  div, li, ul, a {
-    color: #63666E;
+  div,
+  li,
+  ul,
+  a {
+    color: #63666e;
     text-decoration: none;
   }
-
 
   .input-group {
     margin-bottom: 1rem;
@@ -121,11 +123,11 @@ export default defineComponent({
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
-    border: 1px solid #F3F4F9;
+    border: 1px solid #f3f4f9;
     padding: 1rem;
 
     &.active {
-      color: #1952E1;
+      color: #1952e1;
       background: white;
     }
   }
