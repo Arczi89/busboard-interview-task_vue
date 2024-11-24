@@ -62,7 +62,9 @@ describe("BusLineDetails Component", () => {
     await nextTick();
 
     const message = container.querySelector(".text-muted-stops");
-    expect(message?.textContent?.trim()).toBe("Please select the bus line first.");
+    expect(message?.textContent?.trim()).toBe(
+      "Please select the bus line first."
+    );
   });
 
   it("should display message when no busstop is selected", async () => {
