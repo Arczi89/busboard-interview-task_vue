@@ -112,6 +112,11 @@ export default defineComponent({
     line-height: 24px;
   }
 
+  ul.list-group {
+    overflow-y: scroll;
+    height: 60vh;
+  }
+
   .list-group-item {
     font-weight: 400;
     font-size: 12px;

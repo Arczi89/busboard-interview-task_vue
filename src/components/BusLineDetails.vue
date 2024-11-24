@@ -118,6 +118,11 @@ export default defineComponent({
     color: #63666E;
   }
 
+  ul.list-group {
+      overflow-y: scroll;
+      height: 50vh;
+  }
+
   .list-group-item {
     font-weight: 400;
     font-size: 12px;
