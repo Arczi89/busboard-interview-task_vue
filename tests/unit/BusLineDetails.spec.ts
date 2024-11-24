@@ -34,8 +34,8 @@ describe("BusLineDetails Component", () => {
 
     const stopItems = container.querySelectorAll(".stops > .list-group-item");
     expect(stopItems.length).toBe(STOPS_FROM_API.length);
-    expect(stopItems[0]?.textContent).toBe(STOPS_FROM_API[0].name);
-    expect(stopItems[1]?.textContent).toBe(STOPS_FROM_API[1].name);
+    expect(stopItems[0]?.textContent?.trim()).toBe(STOPS_FROM_API[0].name);
+    expect(stopItems[1]?.textContent?.trim()).toBe(STOPS_FROM_API[1].name);
   });
 
   it("should display bus stop times when a stop is selected", async () => {
@@ -48,8 +48,8 @@ describe("BusLineDetails Component", () => {
 
     const timeItems = container.querySelectorAll(".times > .list-group-item");
     expect(timeItems.length).toBe(STOPS_FROM_API[0].times.length);
-    expect(timeItems[0]?.textContent).toBe(STOPS_FROM_API[0].times[0]);
-    expect(timeItems[1]?.textContent).toBe(STOPS_FROM_API[0].times[1]);
+    expect(timeItems[0]?.textContent?.trim()).toBe(STOPS_FROM_API[0].times[0]);
+    expect(timeItems[1]?.textContent?.trim()).toBe(STOPS_FROM_API[0].times[1]);
   });
 
   it("should show message when no line is selected", async () => {
@@ -62,7 +62,7 @@ describe("BusLineDetails Component", () => {
     await nextTick();
 
     const message = container.querySelector(".text-muted-stops");
-    expect(message?.textContent).toBe("Please select the bus line first.");
+    expect(message?.textContent?.trim()).toBe("Please select the bus line first.");
   });
 
   it("should display message when no busstop is selected", async () => {
@@ -73,7 +73,7 @@ describe("BusLineDetails Component", () => {
     await nextTick();
 
     const message = container.querySelector(".text-muted-times");
-    expect(message?.textContent).toBe(
+    expect(message?.textContent?.trim()).toBe(
       "Please select a bus stop to view times."
     );
   });

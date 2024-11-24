@@ -16,13 +16,8 @@ export default {
 
   async getSortedStops(order: "ASC" | "DESC"): Promise<string[]> {
     const stops = await this.getStops();
-    return [...new Set(stops.map((stop) => stop.stop))].sort((a, b) => {
-      if (order === "ASC") {
-        return a.localeCompare(b);
-      } else {
-        return b.localeCompare(a);
-      }
-    });
+    return [...new Set(stops.map((stop) => stop.stop))]
+    .sort((a, b) => order === "ASC" ? a.localeCompare(b) : b.localeCompare(a));
   },
 
   async getLines(): Promise<number[]> {
