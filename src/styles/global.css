@@ -1,7 +1,8 @@
-body, html {
+html {
   background-color: #F3F4F9;
   font-family: 'Inter', sans-serif;
   height: 100%;
+  min-height: 100%;
   overflow: hidden;
 }
 
@@ -10,6 +11,9 @@ body, html {
 }
 
 .separator {
+  display: block;
   background-color: #F3F4F9;
+  min-height: 1rem;
   height: 1rem;
+  width: 100%;
 }

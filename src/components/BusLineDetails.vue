@@ -124,6 +124,7 @@ export default defineComponent({
     line-height: 16px;
     border: 1px solid #F3F4F9;
     cursor: pointer;
+    padding: 1rem;
 
     &.active {
       color: #1952E1;

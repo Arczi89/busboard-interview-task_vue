@@ -1,24 +1,23 @@
 <template>
   <div class="stops-page">
-    <h2 class="mt-4">
-      Bus Stops
-      <div
-        class="btn btn-link sort"
-        @click="toggleSortOrder"
-        :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
-      >
-        <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up-square' : 'bi-arrow-down-square'"></i>
-      </div>
-    </h2>
-
-    <div class="input-group mb-3">
+    <div class="input-group">
       <input
         v-model="searchTerm"
         type="text"
-        class="form-control"
+        class="form-control search"
         placeholder="Search for stops..."
       />
     </div>
+    <h2>
+        Bus Stops
+        <div
+          class="btn btn-link sort"
+          @click="toggleSortOrder"
+          :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
+        >
+          <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up-square' : 'bi-arrow-down-square'"></i>
+        </div>
+      </h2>
 
     <ul class="list-group">
       <li
@@ -87,27 +86,43 @@ export default defineComponent({
 </script>
 
 <style scoped>
-div, li, ul, a {
-  color: #63666E;
-  text-decoration: none;
-}
+
 .stops-page {
   padding: 1rem;
-}
+  background-color: white;
 
-h2 {
-  font-size: 1.5rem;
-}
+  div, li, ul, a {
+    color: #63666E;
+    text-decoration: none;
+  }
 
-.input-group {
-  margin-bottom: 1rem;
-}
 
-.list-group-item {
-  padding: 0.5rem 1rem;
-}
+  .input-group {
+    margin-bottom: 1rem;
+  }
 
-.text-danger {
-  color: red;
+  .text-danger {
+    color: red;
+  }
+
+  h2 {
+    padding: 1rem 0 0 1rem;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .list-group-item {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    border: 1px solid #F3F4F9;
+    padding: 1rem;
+
+    &.active {
+      color: #1952E1;
+      background: white;
+    }
+  }
 }
 </style>
