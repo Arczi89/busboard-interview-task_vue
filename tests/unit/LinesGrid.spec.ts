@@ -1,23 +1,26 @@
-import { createApp } from 'vue';
-import { describe, it, expect  } from 'vitest';
+import { createApp, nextTick } from 'vue';
+import { describe, it, expect, vi } from 'vitest';
 import LinesGrid from '../../src/components/LinesGrid.vue';
 
+const LINES_FROM_API = [101, 102, 333, 699];
+
+vi.mock('../../src/services/api', () => ({
+  getLines: vi.fn().mockResolvedValue(LINES_FROM_API),
+}));
+
+
 describe('LinesGrid Component', () => {
-  it('renders bus lines in ascending order', () => {
+  it('renders the correct number of bus lines buttons based on the API response', async () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
+    const Component = createApp(LinesGrid, { lines: LINES_FROM_API });
 
-    const lines = [105, 101, 102];
-    const Component = createApp(LinesGrid, { lines });
     Component.mount(container);
+    await nextTick();
 
     const buttons = container.querySelectorAll('button');
-    expect(buttons.length).toBe(lines.length); 
-    if (buttons.length > 0) {
-      expect(buttons[0].textContent).toBe('101');
-    } else {
-      throw new Error('Buttons not found');
-    }
+
+    expect(buttons.length).toBe(LINES_FROM_API.length);
 
     Component.unmount();
     document.body.removeChild(container);

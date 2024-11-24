@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { Stop } from '../types/Stop';
+import { SortedStop } from '@/types/SortedStop';
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
@@ -13,10 +14,16 @@ export default {
     return apiClient.get<Stop[]>('/stops').then((response) => response.data);
   },
 
-  async getSortedStops(): Promise<string[]> {
+  async getSortedStops(order: 'ASC' | 'DESC'): Promise<string[]> {
     const stops = await this.getStops();
     return [...new Set(stops.map((stop) => stop.stop))]
-      .sort((a, b) => a.localeCompare(b));
+      .sort((a, b) => {
+        if (order === 'ASC') {
+          return a.localeCompare(b);
+        } else {
+          return b.localeCompare(a);
+        }
+      });
   },
 
   async getLines(): Promise<number[]> {
@@ -25,7 +32,7 @@ export default {
     return lines.sort((a, b) => a - b);
   },
 
-  async getStopsByLine(line: number): Promise<{ id: number; name: string; times: string[]; order: number }[]> {
+  async getStopsByLine(line: number): Promise<SortedStop[]> {
     const stops = await this.getStops();
   
     const stopsForLine = stops.filter((stop) => stop.line === line);
@@ -43,7 +50,7 @@ export default {
         }
         acc[key].times.push(stop.time);
         return acc;
-      }, {} as Record<string, { id: number; name: string; times: string[]; order: number }>)
+      }, {} as Record<string, SortedStop>)
     );
 
     return groupedStops.sort((a, b) => a.order - b.order);

@@ -1,6 +1,15 @@
 <template>
   <div class="stops-page">
-    <h2 class="mt-4">Bus Stops</h2>
+    <h2 class="mt-4">
+      Bus Stops
+      <div
+        class="btn btn-link sort"
+        @click="toggleSortOrder"
+        :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
+      >
+        <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up-square' : 'bi-arrow-down-square'"></i>
+      </div>
+    </h2>
 
     <div class="input-group mb-3">
       <input
@@ -13,7 +22,7 @@
 
     <ul class="list-group">
       <li
-        v-for="stop in sortedStops"
+        v-for="stop in filteredStops"
         :key="stop"
         class="list-group-item"
       >
@@ -29,21 +38,21 @@
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted } from 'vue';
 import api from '../services/api';
-import type { Stop } from '../types/Stop';
 
 export default defineComponent({
   name: 'StopsPage',
   setup() {
     const searchTerm = ref('');
-    const busStops = ref<Stop[]>([]);
+    const busStops = ref<string[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
+    const sortOrder = ref<'ASC' | 'DESC'>('ASC');
 
     const fetchStops = async () => {
       loading.value = true;
       error.value = null;
       try {
-        const data = await api.getStops();
+        const data = await api.getSortedStops(sortOrder.value);
         busStops.value = data;
       } catch (err: unknown) {
         error.value = err instanceof Error ? err.message : 'Unknown error';
@@ -52,29 +61,36 @@ export default defineComponent({
       }
     };
 
-    const sortedStops = computed(() => {
-      return busStops.value
-        .map((stop) => stop.stop)
-        .filter((stopName, index, self) => self.indexOf(stopName) === index)
-        .filter((stopName) =>
-          stopName.toLowerCase().includes(searchTerm.value.toLowerCase())
-        )
-        .sort((a, b) => a.localeCompare(b));
+    const filteredStops = computed(() => {
+      return busStops.value.filter((stop) =>
+        stop.toLowerCase().includes(searchTerm.value.toLowerCase())
+      );
     });
+
+    const toggleSortOrder = () => {
+      sortOrder.value = sortOrder.value === 'ASC' ? 'DESC' : 'ASC';
+      fetchStops();
+    };
 
     onMounted(fetchStops);
 
     return {
       searchTerm,
-      sortedStops,
+      filteredStops,
       loading,
       error,
+      sortOrder,
+      toggleSortOrder,
     };
   },
 });
 </script>
 
 <style scoped>
+div, li, ul, a {
+  color: #63666E;
+  text-decoration: none;
+}
 .stops-page {
   padding: 1rem;
 }

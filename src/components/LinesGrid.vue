@@ -16,28 +16,46 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, computed, PropType } from 'vue';
+
+export default defineComponent({
   name: "LinesGrid",
   props: {
     lines: {
-      type: Array,
+      type: Array as () => number[],
       default: () => [],
     },
     selectedLine: {
-      type: [String, Number],
+      type: [String, Number] as PropType<string | number | null>,
       default: null,
     },
   },
-  computed: {
-    sortedLines() {
-      return this.lines;
-    },
-  },
-  methods: {
-    selectLine(line) {
-      this.$emit("select-line", line);
-    },
-  },
-};
+  setup(props, { emit }) {
+    const sortedLines = computed(() => {
+      return props.lines;
+    });
+
+    const selectLine = (line: number) => {
+      emit("select-line", line);
+    };
+
+    return {
+      sortedLines,
+      selectLine,
+    };
+  }
+});
 </script>
+
+<style scoped>
+.lines-grid {
+  background-color: white;
+  padding: 0 1rem 1rem 1rem;
+}
+button {
+  background: #1952E1;
+  width: 54px;
+  height: 32px;
+}
+</style>
