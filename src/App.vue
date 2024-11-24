@@ -20,8 +20,10 @@
 
 <style scoped>
   .container {
+    max-width: 100vw;
+    max-height: 100vh; 
+    height: 100%;
     padding: 2rem;
-    max-height: 100vh;
     display: flex;
     flex-direction: column;
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="bus-line-details">
-    <div class="row">
+    <div class="columns">
       <div class="column" :class="{ box: !line }" >
         <h3 v-if="!line" class="text-muted-stops">Please select the bus line first.</h3>
         <h3 v-else>Bus Stops</h3>
@@ -24,6 +24,7 @@
           </li>
         </ul>
       </div>
+      <div class="gap"></div>
       <div class="column" :class="{ box: !selectedStop }">
         <h3 v-if="selectedStop">Bus Stop: {{ selectedStop.name }}</h3>
         <h3 v-else class="text-muted-times">Please select a bus stop to view times.</h3>
@@ -91,12 +92,20 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.row {
+
+.columns {
   display:flex;
   flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
 
+  .gap {
+    width: 1rem;
+    flex-shrink: 0;
+    background-color: #F3F4F9;
+  }
   .column {
-    flex: 50%;
+    flex: 1;
   }
 
   .box {

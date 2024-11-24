@@ -29,19 +29,24 @@
 <style scoped>
 .nav {
   background-color: white;
+  .nav-item {
+    padding: 1rem;
+    margin-left: 1rem;
+    a {
+      text-decoration: none;
+    }
+  }
 }
   .nav-item.active {
     border: none;
     border-bottom: #1952E1 solid 2px;
-    color: #33373C;
     a {
-      text-decoration: none;
       color: #33373C;
+      font-weight: 500;
     }
   }
   .nav-item:not(.active) {
     a {
-      text-decoration: none;
       color: #9A9DA4;
     }
   }

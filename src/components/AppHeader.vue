@@ -1,5 +1,5 @@
 <template>
-  <header class="py-3 mb-4 border-bottom">
+  <header class="mb-4">
     <h1>Timetable</h1>
   </header>
 </template>
