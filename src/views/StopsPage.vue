@@ -2,13 +2,13 @@
   <div class="stops-page">
     <h2 class="mt-4">
       Bus Stops
-      <button
-        class="btn btn-link"
+      <div
+        class="btn btn-link sort"
         @click="toggleSortOrder"
         :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
       >
-        <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
-      </button>
+        <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up-square' : 'bi-arrow-down-square'"></i>
+      </div>
     </h2>
 
     <div class="input-group mb-3">
@@ -87,6 +87,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+div, li, ul, a {
+  color: #63666E;
+  text-decoration: none;
+}
 .stops-page {
   padding: 1rem;
 }
@@ -105,11 +109,5 @@ h2 {
 
 .text-danger {
   color: red;
-}
-
-button {
-  background: transparent;
-  border: none;
-  padding: 0;
 }
 </style>

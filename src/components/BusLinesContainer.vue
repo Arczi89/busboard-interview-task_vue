@@ -2,6 +2,7 @@
   <div class="bus-lines-container">
     <h2>Select Bus Line</h2>
     <LinesGrid :lines="lines" @select-line="handleLineSelect" />
+    <div class="separator"></div>
     <BusLineDetails
       :line="selectedLine"
       :stops="stops"
@@ -49,3 +50,15 @@ export default defineComponent({
   }
 });
 </script>
+<style scoped>
+.bus-lines-container {
+  background-color: white;
+}
+  h2 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    font-family: Inter;
+    padding: 1rem;
+  }
+</style>

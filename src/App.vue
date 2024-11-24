@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="container">
+    <div id="my-app" class="container">
       <AppHeader />
       <TabBar />
       <router-view />
@@ -17,4 +17,12 @@
     },
   };
   </script>
-  
+
+<style scoped>
+  .container {
+    padding: 2rem;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+</style>

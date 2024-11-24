@@ -1,11 +1,18 @@
 <template>
-  <div class="bus-line-details mt-4">
+  <div class="bus-line-details">
     <div class="row">
-      <div class="col-md-6">
-        <h3 v-if="!line" class="mt-4 text-muted-stops">Please select the bus line first.</h3>
+      <div class="column" :class="{ box: !line }" >
+        <h3 v-if="!line" class="text-muted-stops">Please select the bus line first.</h3>
         <h3 v-else>Bus Stops</h3>
+        <button v-if="line"
+          class="btn btn-link"
+          @click="toggleSortOrder"
+          :aria-label="sortOrder === 'ASC' ? 'Sort descending' : 'Sort ascending'"
+        >
+          <i class="bi" :class="sortOrder === 'ASC' ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+        </button>
         <h4 v-if="line"> Bus Line: {{ line }}</h4>
-        <ul class="list-group stops">
+        <ul v-if="line" class="list-group stops">
           <li
             v-for="stop in sortedStops"
             :key="stop.id"
@@ -17,9 +24,9 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-6">
+      <div class="column" :class="{ box: !selectedStop }">
         <h3 v-if="selectedStop">Bus Stop: {{ selectedStop.name }}</h3>
-        <h3 v-else class="mt-4 text-muted-times">Please select a bus stop to view times.</h3>
+        <h3 v-else class="text-muted-times">Please select a bus stop to view times.</h3>
         <ul v-if="selectedStop && selectedStop.times.length > 0" class="list-group times">
           <li v-for="time in sortedTimes" :key="time" class="list-group-item">
             {{ time }}
@@ -83,3 +90,32 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.row {
+  display:flex;
+  flex-direction: row;
+
+  .column {
+    flex: 50%;
+  }
+
+  .box {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='4' stroke-dasharray='24%2c 23' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
+
+    .text-muted-stops, .text-muted-times {
+      text-align: center;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 400;
+      color: #33373C;
+    }
+    .stops, .times {
+      display: block;
+    }
+  }
+}
+</style>

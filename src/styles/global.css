@@ -1,5 +1,13 @@
 body {
-    background-color: #f8f9fa;
-    font-family: 'Inter', sans-serif;
-  }
-  
+  background-color: #F3F4F9;
+  font-family: 'Inter', sans-serif;
+}
+
+#app {
+  background-color: #F3F4F9;
+}
+
+.separator {
+  background-color: #F3F4F9;
+  height: 1rem;
+}

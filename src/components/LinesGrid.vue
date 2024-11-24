@@ -47,3 +47,15 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.lines-grid {
+  background-color: white;
+  padding: 0 1rem 1rem 1rem;
+}
+button {
+  background: #1952E1;
+  width: 54px;
+  height: 32px;
+}
+</style>
