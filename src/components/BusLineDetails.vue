@@ -61,8 +61,11 @@ export default defineComponent({
     const selectedStop = ref<SortedStop | null>(null);
     const sortOrder = ref<'ASC' | 'DESC'>('ASC'); 
     const sortedStops = computed(() => {
-      return [...props.stops].sort((a, b) => a.order - b.order); 
+      return [...props.stops].sort((a, b) => 
+        sortOrder.value === 'ASC' ? a.order - b.order : b.order - a.order
+      );
     });
+
 
     const sortedTimes = computed(() => {
       if (!selectedStop.value || !selectedStop.value.times) return [];
@@ -87,6 +90,7 @@ export default defineComponent({
       selectedStop,
       sortedStops,
       sortedTimes,
+      sortOrder,
       selectStop,
       toggleSortOrder,
     };
