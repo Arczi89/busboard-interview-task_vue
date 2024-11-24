@@ -1,13 +1,11 @@
 <template>
   <div class="bus-line-details mt-4">
-    <h3>Bus Line: {{ line }}</h3>
-    <div v-if="!stops || stops.length === 0" class="text-muted">
-      Please select the bus stop first.
-    </div>
     <div class="row">
       <div class="col-md-6">
-        <h4>Bus Stops</h4>
-        <ul class="list-group">
+        <h3 v-if="!line" class="mt-4 text-muted-stops">Please select the bus line first.</h3>
+        <h3 v-else>Bus Stops</h3>
+        <h4 v-if="line"> Bus Line: {{ line }}</h4>
+        <ul class="list-group stops">
           <li
             v-for="stop in sortedStops"
             :key="stop.id"
@@ -20,13 +18,13 @@
         </ul>
       </div>
       <div class="col-md-6">
-        <h4 v-if="selectedStop">Bus Stop: {{ selectedStop.name }}</h4>
-        <ul v-if="selectedStop && selectedStop.times.length > 0" class="list-group">
+        <h3 v-if="selectedStop">Bus Stop: {{ selectedStop.name }}</h3>
+        <h3 v-else class="mt-4 text-muted-times">Please select a bus stop to view times.</h3>
+        <ul v-if="selectedStop && selectedStop.times.length > 0" class="list-group times">
           <li v-for="time in sortedTimes" :key="time" class="list-group-item">
             {{ time }}
           </li>
         </ul>
-        <div v-else class="text-muted">Please select a bus stop to view times.</div>
       </div>
     </div>
   </div>
@@ -41,8 +39,8 @@ export default defineComponent({
   name: 'BusLineDetails',
   props: {
     line: {
-      type: [String, Number],
-      required: true,
+      type: [String, Number, () => null],
+      required: false,
     },
     stops: {
       type: Array as () => SortedStop[], 

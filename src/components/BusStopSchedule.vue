@@ -1,7 +1,7 @@
 <template>
   <div class="bus-stop-schedule">
     <h3>Bus Line: {{ line }}</h3>
-    <div v-if="!stops || stops.length === 0" class="text-muted">
+    <div v-if="!stops || stops.length === 0" class="text-muted-stops">
       Please select the bus stop first.
     </div>
     <div v-else class="list-group">

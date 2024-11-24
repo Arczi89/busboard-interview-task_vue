@@ -2,11 +2,7 @@
   <div class="bus-lines-container">
     <h2>Select Bus Line</h2>
     <LinesGrid :lines="lines" @select-line="handleLineSelect" />
-    <div v-if="!selectedLine" class="mt-4 text-muted">
-      Please select the bus line first.
-    </div>
     <BusLineDetails
-      v-else
       :line="selectedLine"
       :stops="stops"
     />
@@ -28,7 +24,7 @@ export default defineComponent({
   },
   setup() {
     const lines = ref<number[]>([]);
-    const selectedLine = ref<number | null>(null);
+    const selectedLine = ref<number | string | null>(null);
     const stops = ref<SortedStop[]>([]);
 
     onMounted(async () => {
